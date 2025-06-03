@@ -6,7 +6,7 @@ Trabalho final da disciplina de WEB
 ### Integrantes
 [comment]: <> Ana Paula Souza Carvalho:https://github.com/anapaulaszc
 Daniely dos Santos Silva:https://github.com/Dannydssilv
-Franklin Eduardo:
+Franklin Eduardo: ??
 Lívia Oliveira Cunha:https://github.com/liviacunha14
-Maria Eloísa Costa Silva:
+Maria Eloísa Costa Silva: https://github.com/maeloisaaa
 
