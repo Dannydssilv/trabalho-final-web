@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash Up - Seja Bem Vindo!</title>
+    <title>Flash Up - Crie seus Flashcards</title>
     
     <link rel="stylesheet" href="css/estilo.css">
     
@@ -29,17 +29,29 @@
             <div class="header-placeholder"></div>
         </header>
 
-        <main class="main-content">
-            <div class="welcome-section">
-                <h2>Seja Bem Vindo!</h2>
-                <p>Flash Up é um site de estudos com flashcards onde você pode criar seus próprios baralhos ou usar milhares de baralhos prontos para memorizar e revisar qualquer conteúdo.</p>
-            </div>
-            <div class="buttons-section">
-                <button class="button create-button" onclick="location.href='crie.html'">
-                    Crie você mesmo
-                    <i class="fas fa-plus"></i>
+        <main class="main-content-create"> 
+            <div class="create-section">
+                <div class="flashcard-grid" id="flashcardGrid">
+                    
+                    <div class="flashcard-item card-container">
+                        <input type="checkbox" id="card-1-flip" class="card-flip-checkbox">
+                        <label for="card-1-flip" class="card-inner">
+                            <div class="card-face card-front">
+                                <textarea placeholder="Pergunta aqui..." class="flashcard-textarea"></textarea>
+                            </div>
+                            <div class="card-face card-back">
+                                <textarea placeholder="Resposta aqui..." class="flashcard-textarea"></textarea>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flashcard-item add-flashcard" id="addFlashcardButton">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
                 </button>
-                <button class="button flashcards-button">Flashcards Prontos</button>
             </div>
         </main>
 
@@ -76,5 +88,6 @@
         <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
     </div>
 
+    <script src="js/script.js"></script>
 </body>
 </html>
