@@ -1,0 +1,429 @@
+:root {
+    --primary-bg-color: #e6e6fa;
+    --secondary-accent-color: #9370db;
+    --container-border-color: #b0e0e6;
+    --text-color: #333;
+    --plus-icon-color: #6a5acd;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Fredoka', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    background-image: url('caminho/para/sua-imagem-de-fundo.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background-image: url('caminho/para/1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-bg-color);
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.menu-icon i {
+    font-size: 2.2em;
+    color: var(--secondary-accent-color);
+    cursor: pointer;
+}
+
+.logo img {
+    height: 150px; 
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out; 
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.header-placeholder {
+    width: 2.2em;
+    height: 100%;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+}
+
+.welcome-section {
+    flex-basis: 50%;
+    padding-right: 40px;
+    box-sizing: border-box;
+    text-align: left;
+    max-width: 550px;
+}
+
+.welcome-section h2 {
+    font-size: 4.5em;
+    color: var(--text-color);
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+}
+
+.welcome-section p {
+    font-size: 1.3em;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.buttons-section {
+    flex-basis: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    max-width: 300px;
+}
+
+.button {
+    width: 100%;
+    padding: 25px 20px;
+    background-color: #fff;
+    border: 3px solid var(--secondary-accent-color);
+    border-radius: 15px;
+    font-family: 'Fredoka', cursive;
+    font-size: 1.4em;
+    color: var(--secondary-accent-color);
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.button:hover {
+    background-color: var(--primary-bg-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button i {
+    font-size: 1.2em;
+    color: var(--plus-icon-color);
+}
+
+.create-button {
+    padding: 30px 20px;
+}
+
+.flashcards-button {
+    padding: 30px 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-bg-color);
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin-top: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.social-icons a {
+    color: var(--secondary-accent-color);
+    font-size: 1.8em;
+    margin-right: 15px;
+    transition: color 0.2s ease-in-out;
+}
+
+.social-icons a:last-child {
+    margin-right: 0;
+}
+
+.social-icons a:hover {
+    color: var(--plus-icon-color);
+}
+
+.footer p {
+    font-size: 1em;
+    color: var(--secondary-accent-color);
+    margin: 0;
+    font-weight: 500;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--primary-bg-color);
+    z-index: 1000;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#menu-toggle:checked ~ .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.close-btn i {
+    font-size: 2em;
+    color: var(--secondary-accent-color);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn i:hover {
+    color: var(--text-color);
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.sidebar-content h2 {
+    font-size: 2em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.subjects-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subjects-list li {
+    font-size: 1.5em;
+    color: var(--text-color);
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.subjects-list li:hover {
+    color: var(--secondary-accent-color);
+}
+
+.subjects-list li i {
+    font-size: 0.8em;
+    color: var(--secondary-accent-color);
+}
+
+.sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: var(--primary-bg-color);
+    border: 3px solid var(--secondary-accent-color);
+    border-radius: 10px;
+    font-family: 'Fredoka', cursive;
+    font-size: 1.2em;
+    color: var(--secondary-accent-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.login-button:hover {
+    background-color: var(--secondary-accent-color);
+    color: #fff;
+}
+
+.help-link {
+    font-size: 1em;
+    color: var(--secondary-accent-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.help-link:hover {
+    color: var(--text-color);
+}
+
+.ajuda-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 80%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 1001;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+#ajuda-toggle:checked ~ .ajuda-box {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.ajuda-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.ajuda-box p {
+    font-size: 1.2em;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .welcome-section,
+    .buttons-section {
+        flex-basis: 100%;
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .welcome-section {
+        max-width: 90%;
+        padding: 0 20px;
+    }
+
+    .welcome-section h2 {
+        font-size: 3.5em;
+    }
+
+    .welcome-section p {
+        font-size: 1.1em;
+    }
+
+    .buttons-section {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .header, .footer {
+        padding: 8px 15px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        height: 50px;
+    }
+    
+    .menu-icon i {
+        font-size: 1.8em;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+    
+    .header-placeholder {
+        width: 1.8em;
+    }
+
+    .welcome-section h2 {
+        font-size: 2.8em;
+    }
+
+    .welcome-section p {
+        font-size: 1em;
+    }
+
+    .button {
+        padding: 20px 15px;
+        font-size: 1.2em;
+        border-radius: 10px;
+    }
+
+    .create-button, .flashcards-button {
+        padding: 25px 15px;
+    }
+    
+    .social-icons a {
+        font-size: 1.5em;
+        margin-right: 10px;
+    }
+
+    .footer p {
+        font-size: 0.85em;
+    }
+}

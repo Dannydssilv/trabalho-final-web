@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Up - Seja Bem Vindo!</title>
+    
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <input type="checkbox" id="menu-toggle" style="display: none;">
+    <input type="checkbox" id="ajuda-toggle" style="display: none;">
+
+    <div class="container">
+        <header class="header">
+            <label for="menu-toggle" class="menu-icon">
+                <i class="fas fa-bars"></i>
+            </label>
+            <div class="logo">
+                <img src="img/Logo.png" alt="Flash Up Logo">
+            </div>
+            <div class="header-placeholder"></div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2>Seja Bem Vindo!</h2>
+                <p>Flash Up é um site de estudos com flashcards onde você pode criar seus próprios baralhos ou usar milhares de baralhos prontos para memorizar e revisar qualquer conteúdo.</p>
+            </div>
+            <div class="buttons-section">
+                <button class="button create-button">
+                    Crie você mesmo
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="button flashcards-button">Flashcards Prontos</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="far fa-envelope"></i></a>
+            </div>
+            <p>Flash Up 2025</p>
+        </footer>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <label for="menu-toggle" class="close-btn">
+                <i class="fas fa-arrow-left"></i>
+            </label>
+        </div>
+        <div class="sidebar-content">
+            <h2>Matérias</h2>
+            <ul class="subjects-list">
+                <li>ENEM <i class="fas fa-chevron-right"></i></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <label for="ajuda-toggle" class="help-link">Ajuda?</label>
+        </div>
+    </div>
+
+    <div class="ajuda-box">
+        <label for="ajuda-toggle" class="ajuda-close-btn">&times;</label>
+        <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
+    </div>
+
+</body>
+</html>
