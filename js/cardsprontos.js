@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let flashcards = [];
     let currentCardIndex = 0;
 
+    const prontoFlashcards = [
+        { pergunta: "Qual é a capital do Brasil?", resposta: "Brasília" },
+        { pergunta: "Qual é o maior planeta do Sistema Solar?", resposta: "Júpiter" },
+        { pergunta: "Quem escreveu 'Dom Quixote'?", resposta: "Miguel de Cervantes" },
+        { pergunta: "Qual é o principal gás na atmosfera da Terra?", resposta: "Nitrogênio" },
+        { pergunta: "Qual é o metal mais abundante na crosta terrestre?", resposta: "Alumínio" },
+        { pergunta: "Em que ano a Declaração de Independência do Brasil foi assinada?", resposta: "1822" },
+        { pergunta: "Qual é a fórmula química da água?", resposta: "H2O" },
+        { pergunta: "Quem pintou a Mona Lisa?", resposta: "Leonardo da Vinci" },
+        { pergunta: "Qual é o maior oceano do mundo?", resposta: "Oceano Pacífico" },
+        { pergunta: "Qual país tem o maior número de pirâmides?", resposta: "Sudão" },
+    ];
+
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -16,16 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadFlashcards() {
-        const savedFlashcards = localStorage.getItem('flashcards');
-        if (savedFlashcards) {
-            flashcards = JSON.parse(savedFlashcards);
-            shuffle(flashcards);
-            if (flashcards.length > 0) {
-                showCurrentCard();
-            } else {
-                perguntaText.textContent = "Nenhum flashcard encontrado. Crie alguns!";
-                nextCardBtn.style.display = 'none';
-            }
+        flashcards = prontoFlashcards;
+        shuffle(flashcards);
+        if (flashcards.length > 0) {
+            showCurrentCard();
+        } else {
+            perguntaText.textContent = "Nenhum flashcard encontrado. Volte para a página inicial.";
+            nextCardBtn.style.display = 'none';
         }
     }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash Up - Seja Bem Vindo!</title>
+    <title>Flash Up - Flashcards Prontos</title>
     
     <link rel="stylesheet" href="css/estilo.css">
     
@@ -29,20 +29,23 @@
             <div class="header-placeholder"></div>
         </header>
 
-        <main class="main-content">
-            <div class="welcome-section">
-                <h2>Seja Bem Vindo!</h2>
-                <p>Flash Up é um site de estudos com flashcards onde você pode criar seus próprios baralhos ou usar milhares de baralhos prontos para memorizar e revisar qualquer conteúdo.</p>
-            </div>
-            <div class="buttons-section">
-                <a href="crie.html" class="button create-button">
-                    Crie você mesmo
-                    <i class="fas fa-plus"></i>
-                </a>
-                <a href="cardsprontos.html" class="button flashcards-button">
-                    Flashcards Prontos
-                    <i class="fas fa-lightbulb"></i>
-                </a>
+        <main class="main-content-study">
+            <div class="study-section">
+                <div class="flashcard-container">
+                    <div class="flashcard-inner" id="studyCard">
+                        <div class="flashcard-face flashcard-front">
+                            <p class="flashcard-text" id="pergunta-text"></p>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <p class="flashcard-text" id="resposta-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="study-controls">
+                    <button id="restartBtn" class="study-button">Voltar</button>
+                    <button id="nextCardBtn" class="study-button">Próximo</button>
+                </div>
             </div>
         </main>
 
@@ -82,5 +85,6 @@
         <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
     </div>
 
+    <script src="js/cardsprontos.js"></script>
 </body>
 </html>

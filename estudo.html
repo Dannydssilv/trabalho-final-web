@@ -23,13 +23,13 @@
             <label for="menu-toggle" class="menu-icon">
                 <i class="fas fa-bars"></i>
             </label>
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <img src="img/Logo.png" alt="Flash Up Logo">
-            </div>
+            </a>
             <div class="header-placeholder"></div>
         </header>
 
-        <main class="main-content-study"> 
+        <main class="main-content-study">
             <div class="study-section">
                 <div class="flashcard-container">
                     <div class="flashcard-inner" id="studyCard">
@@ -43,6 +43,7 @@
                 </div>
 
                 <div class="study-controls">
+                    <button id="restartBtn" class="study-button">Voltar</button>
                     <button id="nextCardBtn" class="study-button">Próximo</button>
                     <button id="backCardBtn" class="study-button back-button" style="display:none;">Voltar</button>
                 </div>
@@ -69,7 +70,10 @@
         <div class="sidebar-content">
             <h2>Matérias</h2>
             <ul class="subjects-list">
-                <li>ENEM <i class="fas fa-chevron-right"></i></li>
+                <li>
+                    <a href="cardsprontos.html">ENEM</a>
+                    <i class="fas fa-chevron-right"></i>
+                </li>
             </ul>
         </div>
         <div class="sidebar-footer">

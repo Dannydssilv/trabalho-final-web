@@ -428,7 +428,6 @@ body {
     }
 }
 
-/* Estilos específicos para a página de criação de flashcards */
 .main-content-create {
     flex-grow: 1;
     display: flex;
@@ -622,7 +621,6 @@ body {
         font-size: 1.8em;
     }
 }
-/* --- Estilos para o Modo Estudo --- */
 
 .main-content-study {
     flex-grow: 1;

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardCount++;
         const newFlashcardHTML = `
             <div class="flashcard-item card-container">
-                <input type="checkbox" id="card-${cardCount}-flip" class="card-flip-checkbox" style="display: none;">
+                <input type="checkbox" id="card-${cardCount}-flip" class="card-flip-checkbox">
                 <label for="card-${cardCount}-flip" class="card-inner">
                     <div class="card-face card-front">
                         <textarea placeholder="Pergunta aqui..." class="flashcard-textarea"></textarea>
