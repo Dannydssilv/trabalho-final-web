@@ -35,24 +35,37 @@ Atributos
 Os atributos do Flash Up são:
 
 Para a entidade Usuario:
+
     * id_usuario (Identificador)
+
     * nome
+    
     * email
+
     * senha
 
 Para a entidade Categoria:
+
     * id_categoria (Identificador)
+
     * nome_categoria
 
 Para a entidade Baralho:
+
     * id_baralho (Identificador)
+
     * titulo
+
     * descricao
+
     * data_criacao
 
 Para a entidade Flashcard:
+
     * id_flashcard (Identificador)
+
     * pergunta
+
     * resposta
 
 Relacionamentos
@@ -60,18 +73,15 @@ Relacionamentos
 Os relacionamentos do Flash Up são:
 
 Cria (entre Usuario e Baralho):
-    Descrição: Define a autoria de um baralho, garantindo que cada baralho pertença a um usuário.
-
+    Define a autoria de um baralho, garantindo que cada baralho pertença a um usuário.
     Cardinalidade: Um Usuario pode criar (0,n) (zero ou muitos) Baralhos, e um Baralho deve ser criado por (1,1) (um e somente um) Usuario.
 
 Agrupa (entre Categoria e Baralho):
-    Descrição:Organiza os baralhos por assunto.
-
+    Organiza os baralhos por assunto.
     Cardinalidade: Uma Categoria pode agrupar (0,n) (zero ou muitos) Baralhos, e um Baralho deve ser agrupado em (1,1) (uma e somente uma) Categoria.
 
 Contém (entre Baralho e Flashcard):
-    Descrição: Define quais cartões pertencem a qual baralho. Um flashcard não pode existir sem um baralho.
-
+    Define quais cartões pertencem a qual baralho. Um flashcard não pode existir sem um baralho.
     Cardinalidade: Um Baralho deve conter (1,n) (um ou muitos) Flashcards, e um Flashcard deve estar contido em (1,1) (um e somente um) Baralho.
 
 [Link para o DDL](./db/DDL.sql)
