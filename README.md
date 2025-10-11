@@ -73,3 +73,7 @@ Contém (entre Baralho e Flashcard):
     Descrição: Define quais cartões pertencem a qual baralho. Um flashcard não pode existir sem um baralho.
 
     Cardinalidade: Um Baralho deve conter (1,n) (um ou muitos) Flashcards, e um Flashcard deve estar contido em (1,1) (um e somente um) Baralho.
+
+[Link para o DDL](./db/DDL.sql)
+
+[Link para o DML)](./db/DML.sql)
