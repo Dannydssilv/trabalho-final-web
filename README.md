@@ -18,7 +18,7 @@ Maria Eloísa Costa Silva: https://github.com/maeloisaaa
 #### Explicação das Entidades, Atributos e Relacionamentos
 Entidades
 
-Uma entidade é um conjunto de objetos do mundo real sobre os quais se deseja manter informações no banco de dados. As entidades do projeto Flash Up são:
+As entidades do projeto Flash Up são:
 
 Usuario: Representa a pessoa que se cadastra e utiliza a plataforma para criar e estudar os baralhos.
 Baralho: Representa uma coleção de flashcards sobre um tema específico, criada por um usuário.
@@ -27,7 +27,7 @@ Categoria: Agrupa os baralhos por matéria ou assunto (ex: ENEM) para facilitar 
 
 Atributos
 
-Um atributo é um dado associado a cada ocorrência de uma entidade. O atributo que identifica unicamente uma ocorrência é o Identificador (Chave Primária).
+Os atributos do Flash Up são:
 
 Para a entidade Usuario:
     * id_usuario (Identificador)
@@ -49,7 +49,7 @@ Para a entidade Flashcard:
 
 Relacionamentos
 
-Um relacionamento é uma associação entre entidades. A cardinalidade (mínimo, máximo) especifica quantas ocorrências de uma entidade podem se associar a outra.
+Os relacionamentos do Flash Up são:
 
 Cria (entre Usuario e Baralho):
     Descrição: Define a autoria de um baralho, garantindo que cada baralho pertença a um usuário.
