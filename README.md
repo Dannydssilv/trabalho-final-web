@@ -86,4 +86,4 @@ Contém (entre Baralho e Flashcard):
 
 [Link para o DDL](./db/DDL.sql)
 
-[Link para o DML)](./db/DML.sql)
+[Link para o DML](./db/DML.sql)
