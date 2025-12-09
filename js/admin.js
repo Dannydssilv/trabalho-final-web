@@ -27,7 +27,7 @@ tabelaCorpo.innerHTML = "Aguarde...";
             <td>${admin.nome}</td>
             <td>${admin.email}</td>
             <td>
-                <a class="botao editar" href="ver-usuario.html?id=${admin.id}">Ver</a>
+                <a class="botao editar" href="ver-admin.html?id=${admin.id}">Ver</a>
                 <a class="botao excluir" data-id="${admin.id}">Excluir</a>
             </td>
       `;
