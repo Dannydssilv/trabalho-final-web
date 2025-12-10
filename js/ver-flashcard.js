@@ -1,28 +1,66 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
+
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
+
+const botaoSalvar = document.getElementById("submit");
+botaoSalvar.addEventListener("click", salvarFlashcard);
 
 document.getElementById("id").value = "Carregando...";
 
 (async () => {
-  try {
-    const endpoint = `/flashcards/${id}`; 
-    const urlFinal = urlBase + endpoint; 
+    try {
+        const endpoint = `/flashcards/${id}`; 
+        const urlFinal = urlBase + endpoint; 
 
-    const response = await fetch(urlFinal);
+        const response = await fetch(urlFinal);
 
-    if (!response.ok) {
-      throw new Error("Erro na requisição: " + response.status);
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.status);
+        }
+
+        const data = await response.json();
+        
+        const flashcard = Array.isArray(data) ? data[0] : data;
+
+        document.getElementById("id").value = flashcard.id;
+        document.getElementById("pergunta").value = flashcard.pergunta;
+        document.getElementById("resposta").value = flashcard.resposta;
+
+    } catch (error) {
+        document.getElementById("id").value = `Erro: ${error.message}`;
     }
-
-    const data = await response.json();
-
-    document.getElementById("id").value = data[0].id;
-    document.getElementById("pergunta").innerText = data[0].pergunta;
-    document.getElementById("resposta").value = data[0].resposta;
-
-
-  } catch (error) {
-    document.getElementById("id").value = `Erro na requisição: ${error}`;
-  }
 })();
+
+async function salvarFlashcard(e) {
+    e.preventDefault(); 
+
+    try {
+        const dados = {
+            pergunta: document.getElementById("pergunta").value,
+            resposta: document.getElementById("resposta").value
+        };
+
+        const endpoint = `/flashcards/${id}`; 
+        const urlFinal = urlBase + endpoint; 
+        const response = await fetch(urlFinal, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json", 
+            },
+            body: JSON.stringify(dados), 
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.status);
+        }
+
+        alert("Questão alterada com sucesso!");
+        window.location.href = "cardsprontos.html";
+
+
+    } catch (error) {
+        alert("Flashcard não pôde ser alterado: " + error.message);
+        window.location.href = "cardsprontos.html";
+    }
+}
