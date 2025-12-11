@@ -31,10 +31,15 @@
 
         <main class="main-content-study">
             <div class="study-section">
+                
+                <h3 style="color: #9370db; font-size: 2rem; margin-bottom: 20px; text-align: center; width: 100%;">
+                    Revisão
+                </h3>
+
                 <div class="flashcard-container">
                     <div class="flashcard-inner" id="studyCard">
                         <div class="flashcard-face flashcard-front">
-                            <p class="flashcard-text" id="pergunta-text"></p>
+                            <p class="flashcard-text" id="pergunta-text">Carregando...</p>
                         </div>
                         <div class="flashcard-face flashcard-back">
                             <p class="flashcard-text" id="resposta-text"></p>
@@ -45,8 +50,7 @@
                 <div class="study-controls">
                     <button id="restartBtn" class="study-button">Voltar</button>
                     <button id="nextCardBtn" class="study-button">Próximo</button>
-                    <button id="backCardBtn" class="study-button back-button" style="display:none;">Voltar</button>
-                </div>
+                    </div>
             </div>
         </main>
 
@@ -71,13 +75,16 @@
             <h2>Matérias</h2>
             <ul class="subjects-list">
                 <li>
-                    <a href="cardsprontos.html">ENEM</a>
+                    <a href="cardsprontos.html">Geral</a>
                     <i class="fas fa-chevron-right"></i>
                 </li>
             </ul>
         </div>
-        <div class="sidebar-footer">
+        <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
             <label for="ajuda-toggle" class="help-link">Ajuda?</label>
+            <a href="admin.html" title="Acesso Administrativo">
+                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
+            </a>
         </div>
     </div>
 

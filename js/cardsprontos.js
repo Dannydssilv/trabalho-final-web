@@ -5,61 +5,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextCardBtn = document.getElementById('nextCardBtn');
     const restartBtn = document.getElementById('restartBtn');
 
+    // Elementos do Modal
+    const modalAviso = document.getElementById('modal-aviso');
+    const modalTitulo = document.getElementById('modal-titulo');
+    const modalMensagem = document.getElementById('modal-mensagem');
+    const btnModalOk = document.getElementById('btn-modal-ok');
+
     let flashcards = [];
     let currentCardIndex = 0;
 
     const urlBase = "https://back-end-tf-web-chi.vercel.app";
 
-    // let prontoFlashcards = [
-    //     { pergunta: "Qual é a capital do Brasil?", resposta: "Brasília" },
-    //     { pergunta: "Qual é o maior planeta do Sistema Solar?", resposta: "Júpiter" },
-    //     { pergunta: "Quem escreveu 'Dom Quixote'?", resposta: "Miguel de Cervantes" },
-    //     { pergunta: "Qual é o principal gás na atmosfera da Terra?", resposta: "Nitrogênio" },
-    //     { pergunta: "Qual é o metal mais abundante na crosta terrestre?", resposta: "Alumínio" },
-    //     { pergunta: "Em que ano a Declaração de Independência do Brasil foi assinada?", resposta: "1822" },
-    //     { pergunta: "Qual é a fórmula química da água?", resposta: "H2O" },
-    //     { pergunta: "Quem pintou a Mona Lisa?", resposta: "Leonardo da Vinci" },
-    //     { pergunta: "Qual é o maior oceano do mundo?", resposta: "Oceano Pacífico" },
-    //     { pergunta: "Qual país tem o maior número de pirâmides?", resposta: "Sudão" },
-    // ];
+    // --- FUNÇÃO PARA MOSTRAR A JANELA BONITA ---
+    function mostrarModal(titulo, mensagem, callback) {
+        modalTitulo.textContent = titulo;
+        modalMensagem.textContent = mensagem;
+        
+        // Mostra o modal (muda o display de none para flex)
+        modalAviso.style.display = 'flex';
+        
+        // Define o que acontece ao clicar em OK
+        btnModalOk.onclick = () => {
+            modalAviso.style.display = 'none'; // Esconde
+            if (callback) callback(); // Executa a ação seguinte
+        };
+    }
 
+    // 1. Buscar do Banco
     async function pegarFlashBD() {
         try {
-            const endpoint = "/flashcards";
-            const urlFinal = urlBase + endpoint;
-
-            const response = await fetch(urlFinal);
-
-            if (!response.ok) {
-                throw new Error("Erro na requisição: " + response.status);
-            }
-
-            const data = response.json();
-
+            const response = await fetch(urlBase + "/flashcards");
+            if (!response.ok) throw new Error("Erro na requisição");
+            const data = await response.json(); 
             return data;
-
         } catch (error) {
-            alert(error.message);
             console.error(error);
+            mostrarModal("Ops!", "Erro ao buscar cartões: " + error.message);
             return [];
         }
     }
 
-    async function carregarDados() {
-        const prontoFlashcards = await pegarFlashBD();
-
-        // Agora 'prontoFlashcards' tem os dados reais (o array)
-        console.log(prontoFlashcards);
-        
-        return prontoFlashcards;
-        // Aqui você chamaria a função que desenha na tela, ex:
-        // renderizarFlashcards(prontoFlashcards);
-    }
-
-    const prontoFlashcards = carregarDados();
-
-    console.log(prontoFlashcards);
-
+    // 2. Embaralhar
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -67,25 +53,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function loadFlashcards() {
-        flashcards = prontoFlashcards;
-        shuffle(flashcards);
-        if (flashcards.length > 0) {
-            showCurrentCard();
-        } else {
-            perguntaText.textContent = "Nenhum flashcard encontrado. Volte para a página inicial.";
-            nextCardBtn.style.display = 'none';
-        }
-    }
-
+    // 3. Mostrar Card
     function showCurrentCard() {
         if (flashcards.length > 0) {
             const currentCard = flashcards[currentCardIndex];
-            perguntaText.textContent = currentCard.pergunta;
+            perguntaText.textContent = currentCard.pergunta; 
             respostaText.textContent = currentCard.resposta;
             studyCard.classList.remove('flipped');
         }
     }
+
+    // 4. Iniciar Jogo
+    async function iniciarJogo() {
+        perguntaText.textContent = "Carregando flashcards...";
+        
+        const dadosDoBanco = await pegarFlashBD();
+
+        if (!dadosDoBanco || dadosDoBanco.length === 0) {
+            perguntaText.textContent = "Nenhum flashcard encontrado.";
+            nextCardBtn.style.display = 'none';
+            return;
+        }
+
+        flashcards = dadosDoBanco;
+        shuffle(flashcards);
+        showCurrentCard();
+    }
+
+    // --- EVENTOS ---
 
     studyCard.addEventListener('click', () => {
         studyCard.classList.toggle('flipped');
@@ -96,17 +91,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             currentCardIndex++;
+            
+            // SE ACABOU A LISTA:
             if (currentCardIndex >= flashcards.length) {
-                currentCardIndex = 0;
-                shuffle(flashcards);
+                // CHAMA O MODAL BONITO EM VEZ DO ALERT
+                mostrarModal("Parabéns!", "Você completou todos os cards! Começando de novo...", () => {
+                    currentCardIndex = 0;
+                    shuffle(flashcards);
+                    showCurrentCard();
+                });
+            } else {
+                showCurrentCard();
             }
-            showCurrentCard();
-        }, 600);
+            
+        }, 300);
     });
 
     restartBtn.addEventListener('click', () => {
         window.location.href = 'index.html';
     });
 
-    loadFlashcards();
+    iniciarJogo();
 });

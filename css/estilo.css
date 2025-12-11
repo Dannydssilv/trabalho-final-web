@@ -11,7 +11,7 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto; 
 }
 
 body {
@@ -20,7 +20,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f0f2f5;
-    background-image: url('caminho/para/sua-imagem-de-fundo.jpg');
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -37,10 +36,10 @@ body {
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
-    background-image: url('caminho/para/1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow-y: auto; 
 }
 
 .header {
@@ -468,14 +467,24 @@ body {
     border-radius: 15px;
 }
 
+/* ========================================================= */
+/* CORREÇÃO DA ANIMAÇÃO DE VIRAR (FLIP) E ESTILOS 3D         */
+/* ========================================================= */
+
+.card-container {
+    perspective: 1000px;
+}
+
 .card-inner {
     width: 100%;
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.6s ease;
-    display: block;
-    cursor: pointer;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-inner.flipped {
+    transform: rotateY(180deg);
 }
 
 .card-face {
@@ -483,25 +492,29 @@ body {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background-color: #ffe0b3;
-    border: 2px solid #ff8c00;
+    top: 0;
+    left: 0;
     border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
+/* FRENTE */
 .card-front {
+    background-color: #fff5e6; 
+    border: 2px solid #ffd700;
     transform: rotateY(0deg);
+    z-index: 2;
 }
 
+/* VERSO */
 .card-back {
-    transform: rotateY(180deg);
-}
-
-.card-flip-checkbox:checked + .card-inner {
+    background-color: #f0f7ff;
+    border: 2px solid #87cefa;
     transform: rotateY(180deg);
 }
 
@@ -622,94 +635,619 @@ body {
     }
 }
 
-.main-content-study {
-    flex-grow: 1;
+/* ========================================================= */
+/* ESTILOS DA PÁGINA CRIE (NOVOS)                            */
+/* ========================================================= */
+
+/* Seta para virar o card */
+.flip-arrow {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: var(--secondary-accent-color);
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 8px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.flip-arrow:hover {
+    color: var(--plus-icon-color);
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Ajuste do textarea para não cobrir a seta */
+.card-face .flashcard-textarea {
+     height: 85%;
+     margin-bottom: 15px;
+}
+
+/* ========================================================= */
+/* ESTILOS DA ÁREA ADMIN E LOGIN                             */
+/* ========================================================= */
+
+#painel-admin {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+#tela-bloqueio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f2f5; 
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    padding: 20px;
+    z-index: 9999;
 }
 
-.study-section {
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.login-box h2 {
+    color: var(--secondary-accent-color);
+    margin-bottom: 20px;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: var(--secondary-accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.login-box button:hover {
+    background: var(--plus-icon-color);
+}
+
+.admin-table-container {
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    overflow-x: auto; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-family: 'Fredoka', sans-serif;
+}
+
+th {
+    background-color: var(--primary-bg-color);
+    color: var(--secondary-accent-color);
+}
+
+td {
+    color: var(--text-color);
+}
+
+/* ========================================================= */
+/* ESTILOS DA PÁGINA DE EDIÇÃO                               */
+/* ========================================================= */
+
+.edit-container {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: auto; 
+}
+
+.edit-header {
+    background-color: var(--primary-bg-color);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.edit-header h3 {
+    margin: 0;
+    color: var(--secondary-accent-color);
+    font-size: 1.8rem;
+}
+
+.edit-header p {
+    margin: 5px 0 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.edit-body {
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    resize: vertical;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--secondary-accent-color);
+    outline: none;
+}
+
+.form-group input:disabled {
+    background-color: #f9f9f9;
+    color: #888;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.botao {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.botao:active {
+    transform: scale(0.98);
+}
+
+.botao.salvar, .botao.inserir {
+    background-color: #00b894;
+    color: white;
+    border: none;
+}
+
+.botao.salvar:hover, .botao.inserir:hover {
+    background-color: #00a884;
+}
+
+.botao.cancelar {
+    background-color: #ff7675;
+    color: white;
+}
+
+.botao.cancelar:hover {
+    background-color: #d63031;
+}
+
+.btn-editar, .btn-excluir {
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+.btn-editar { color: #0984e3; }
+.btn-excluir { color: #d63031; }
+
+/* ========================================================= */
+/* NOVOS ESTILOS PARA O CRIADOR HORIZONTAL (crie.html)       */
+/* ========================================================= */
+
+/* O container roxo principal agora é horizontal */
+.create-section-horizontal {
+    background-color: var(--primary-bg-color);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: row; /* Em linha */
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px; /* Limita a largura para não esticar demais */
+    overflow: hidden; /* Garante que nada saia do container roxo */
+}
+
+/* Container que segura os cards e permite rolagem */
+.cards-scroll-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto; /* Permite rolagem horizontal se tiver muitos cards */
+    padding-bottom: 10px; /* Espaço para a barra de rolagem não colar nos cards */
+    flex-grow: 1; /* Ocupa o espaço disponível */
+    align-items: center;
+    scroll-behavior: smooth; /* Rolagem suave */
+}
+
+/* Estilizando a barra de rolagem (opcional, fica mais bonito no Chrome/Edge) */
+.cards-scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+.cards-scroll-container::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-accent-color);
+    border-radius: 4px;
+}
+.cards-scroll-container::-webkit-scrollbar-track {
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+/* Área lateral para os botões + e Play */
+.actions-side {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     align-items: center;
-    gap: 30px;
+    justify-content: center;
+    min-width: 80px; /* Garante espaço para os botões */
+    border-left: 2px dashed #ccc;
+    padding-left: 20px;
 }
 
+/* Estilo para cards que já foram finalizados (visuais, não editáveis) */
+.finished-card {
+    transform: scale(0.9); /* Um pouco menores */
+    opacity: 0.8;
+    pointer-events: none; /* Não deixa clicar neles (são só visuais) */
+    transition: all 0.3s;
+}
+
+/* Quando passa o mouse, eles ficam normais para visualizar melhor */
+.finished-card:hover {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 10;
+}
+/* Garante que o textarea dos cards finalizados não mostre barra de rolagem feia */
+.finished-card .flashcard-textarea {
+    overflow: hidden;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .create-section-horizontal {
+        flex-direction: column; /* Volta a ser coluna no celular */
+    }
+    .actions-side {
+        flex-direction: row; /* Botões lado a lado no celular */
+        border-left: none;
+        border-top: 2px dashed #ccc;
+        padding-left: 0;
+        padding-top: 20px;
+        width: 100%;
+    }
+    .cards-scroll-container {
+        width: 100%;
+    }
+}
+
+/* ========================================================= */
+/* ANIMAÇÃO 3D ESPECÍFICA PARA A PÁGINA DE ESTUDO            */
+/* (Classes: .flashcard-container, .flashcard-inner, etc)    */
+/* ========================================================= */
+
 .flashcard-container {
-    width: 300px;
-    height: 400px;
     perspective: 1000px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+    width: 300px; /* Garante tamanho fixo */
+    height: 400px;
+    margin: 0 auto;
 }
 
 .flashcard-inner {
     width: 100%;
     height: 100%;
     position: relative;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
-    transition: transform 0.6s;
     cursor: pointer;
+}
+
+/* Essa classe .flipped é adicionada pelo Javascript ao clicar */
+.flashcard-inner.flipped {
+    transform: rotateY(180deg);
 }
 
 .flashcard-face {
     position: absolute;
     width: 100%;
     height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 15px;
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Frente do Card de Estudo */
 .flashcard-front {
-    background-color: #ffe0b3;
-    border: 2px solid #ff8c00;
+    background-color: #fff5e6;
+    border: 2px solid #ffd700;
+    color: #333;
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
+/* Verso do Card de Estudo */
 .flashcard-back {
-    background-color: #e0f7fa;
-    border: 2px solid #00bcd4;
-    transform: rotateY(180deg);
-}
-
-.flashcard-inner.flipped {
+    background-color: #f0f7ff;
+    border: 2px solid #87cefa;
+    color: #333;
     transform: rotateY(180deg);
 }
 
 .flashcard-text {
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: 500;
-    color: var(--text-color);
-    text-align: center;
+    word-wrap: break-word;
 }
+
+/* ========================================================= */
+/* ESTILOS DOS BOTÕES DE ESTUDO (Centralizados e Bonitos)    */
+/* ========================================================= */
 
 .study-controls {
     display: flex;
-    gap: 20px;
+    justify-content: center; /* ISSO CENTRALIZA OS BOTÕES */
+    align-items: center;
+    gap: 20px; /* Espaço entre eles */
+    margin-top: 30px;
+    width: 100%;
 }
 
 .study-button {
-    padding: 15px 30px;
-    border: 2px solid var(--secondary-accent-color);
-    background-color: var(--primary-bg-color);
-    border-radius: 10px;
-    font-family: 'Fredoka', cursive;
-    font-size: 1.2em;
-    color: var(--secondary-accent-color);
+    padding: 12px 35px; /* Botões mais largos */
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: 2px solid var(--secondary-accent-color); /* Borda Roxa */
+    background-color: white;
+    color: var(--secondary-accent-color); /* Texto Roxo */
+    border-radius: 50px; /* Borda bem redonda (estilo pílula) */
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .study-button:hover {
     background-color: var(--secondary-accent-color);
-    color: #fff;
-    transform: translateY(-2px);
+    color: white;
+    transform: translateY(-3px); /* Sobe um pouquinho ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
+
+/* Opcional: Botão de 'Sair' com cor diferente (vermelho suave) */
+#restartBtn {
+    border-color: #ff7675;
+    color: #ff7675;
+}
+#restartBtn:hover {
+    background-color: #ff7675;
+    color: white;
+}
+
+/* ========================================================= */
+/* MODAL DE CONFIRMAÇÃO (BONITO)                             */
+/* ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px); /* Efeito de desfoque no fundo */
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    color: #ff7675; /* Vermelho suave */
+    margin-bottom: 15px;
+}
+
+.modal-box h3 {
+    color: var(--text-color);
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.modal-box p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-size: 1rem;
+}
+
+.btn-modal:hover { transform: scale(1.05); }
+
+.btn-cancelar {
+    background-color: #dfe6e9;
+    color: #636e72;
+}
+
+.btn-confirmar {
+    background-color: #d63031;
+    color: white;
+    box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+}
+
+/* ========================================================= */
+/* MODAL PERSONALIZADO (JANELAS DE AVISO BONITAS)            */
+/* ========================================================= */
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    animation: fadeIn 0.3s ease;
+    backdrop-filter: blur(3px); /* Desfoque chique no fundo */
+}
+
+.custom-modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.custom-modal-box h3 {
+    color: var(--secondary-accent-color); /* Roxo */
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.custom-modal-box p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 15px 0 25px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-modal {
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.btn-modal:hover { transform: scale(1.05); }
+
+.btn-confirm {
+    background-color: var(--secondary-accent-color); /* Roxo */
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #eee;
+    color: #555;
+}
+
+/* Animações */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { to { transform: scale(1); } }

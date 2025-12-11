@@ -1,83 +1,94 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
 const tabelaCorpo = document.getElementById("tabela-corpo");
 
-tabelaCorpo.innerHTML = "<tr><td colspan='4'>Aguarde...</td></tr>"; 
+tabelaCorpo.innerHTML = "<tr><td colspan='4'>Carregando flashcards...</td></tr>"; 
 
-// --- 1. Listeners de Evento ---
-
-// Captura cliques na tabela para delegar a ação de exclusão
-tabelaCorpo.addEventListener("click", acao);
-
-// --- 2. Funções de Manipulação ---
-
-function acao(e) {
-    // Verifica se o alvo do clique possui a classe 'excluir'
-    if (e.target.classList.contains("excluir")) {
-        e.preventDefault(); // Impede o comportamento padrão do link
-        const id = e.target.getAttribute("data-id"); // Obtém o ID do admin
-        excluirAdmin(id); // Chama a função para excluir
+tabelaCorpo.addEventListener("click", (e) => {
+    const botaoExcluir = e.target.closest(".excluir");
+    if (botaoExcluir) {
+        e.preventDefault(); 
+        const id = botaoExcluir.getAttribute("data-id");
+        confirmarExclusao(id);
     }
-}
+});
 
-// Função para excluir um administrador
-async function excluirAdmin(id) {
-    // Confirmação antes de proceder com a exclusão
-    if (!confirm(`Tem certeza que deseja excluir o administrador com ID ${id}?`)) return;
+// --- NOVA FUNÇÃO DE CONFIRMAÇÃO BONITA ---
+function confirmarExclusao(id) {
+    // Cria a janela na tela
+    const modalDiv = document.createElement("div");
+    modalDiv.className = "custom-modal-overlay";
+    modalDiv.innerHTML = `
+        <div class="custom-modal-box">
+            <h3>Tem certeza?</h3>
+            <p>Deseja realmente excluir o flashcard <b>ID ${id}</b>?</p>
+            <div class="modal-buttons">
+                <button id="btn-nao" class="btn-modal btn-cancel">Cancelar</button>
+                <button id="btn-sim" class="btn-modal btn-confirm">Sim, Excluir</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modalDiv);
 
-    try {
-        const endpoint = `/admin/${id}`; 
-        const urlFinal = urlBase + endpoint; 
+    // Botão Cancelar
+    document.getElementById("btn-nao").addEventListener("click", () => {
+        modalDiv.remove();
+    });
 
-        const response = await fetch(urlFinal, {
-            method: "DELETE",
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro na requisição: ${response.status}`);
+    // Botão Sim (Faz a exclusão de verdade)
+    document.getElementById("btn-sim").addEventListener("click", async () => {
+        modalDiv.remove(); // Fecha a janela
+        try {
+            await fetch(`${urlBase}/flashcards/${id}`, { method: "DELETE" });
+            mostrarAviso("Sucesso", "Flashcard excluído!", () => window.location.reload());
+        } catch (error) {
+            mostrarAviso("Erro", "Não foi possível excluir.");
         }
-
-        alert("Administrador excluído com sucesso!");
-        
-        // Recarrega a página atual para atualizar a lista
-        window.location.reload(); 
-        
-    } catch (error) {
-        console.error(error);
-        alert("Administrador não foi excluído! Verifique a conexão.");
-    }
+    });
 }
 
+function mostrarAviso(titulo, msg, callback) {
+    const modalDiv = document.createElement("div");
+    modalDiv.className = "custom-modal-overlay";
+    modalDiv.innerHTML = `
+        <div class="custom-modal-box">
+            <h3>${titulo}</h3>
+            <p>${msg}</p>
+            <button id="btn-ok" class="btn-modal btn-confirm">OK</button>
+        </div>
+    `;
+    document.body.appendChild(modalDiv);
+    document.getElementById("btn-ok").addEventListener("click", () => {
+        modalDiv.remove();
+        if(callback) callback();
+    });
+}
+
+// Carregar Tabela (Igual ao anterior)
 (async () => {
     try {
-        const endpoint = "/admin"; 
-        const urlFinal = urlBase + endpoint; 
-
-        const response = await fetch(urlFinal);
-
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
-
+        const response = await fetch(urlBase + "/flashcards");
         const data = await response.json();
         tabelaCorpo.innerHTML = "";
+        
+        if (data.length === 0) {
+            tabelaCorpo.innerHTML = `<tr><td colspan="4">Nenhum flashcard encontrado.</td></tr>`;
+            return;
+        }
 
-        data.forEach((admin) => {
+        data.forEach((card) => {
             const linha = document.createElement("tr"); 
-            
             linha.innerHTML = `
-                <td>${admin.id}</td>
-                <td>${admin.nome}</td>
-                <td>${admin.email}</td>
+                <td>${card.id}</td>
+                <td>${card.pergunta}</td>
+                <td>${card.resposta}</td>
                 <td>
-                    <a class="botao editar" href="ver-admin.html?id=${admin.id}">Ver</a>
-                    <a class="botao excluir" data-id="${admin.id}" href="#">Excluir</a>
+                    <a class="botao editar" href="ver-flashcard.html?id=${card.id}"><i class="fas fa-edit"></i></a>
+                    <a class="botao excluir" data-id="${card.id}" href="#" style="color: red; margin-left: 10px;"><i class="fas fa-trash-alt"></i></a>
                 </td>
             `;
-            
             tabelaCorpo.appendChild(linha); 
         });
-
     } catch (error) {
-        tabelaCorpo.innerHTML = `<tr><td colspan="4">Erro ao carregar dados: ${error.message}</td></tr>`;
+        tabelaCorpo.innerHTML = `<tr><td colspan="4">Erro ao carregar.</td></tr>`;
     }
 })();

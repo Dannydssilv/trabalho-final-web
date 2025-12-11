@@ -1,90 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Flash Up - Seja Bem Vindo!</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Up - Seja Bem Vindo!</title>
 
-		<link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/estilo.css">
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	</head>
-	<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
 
-		<input type="checkbox" id="menu-toggle" style="display: none;">
-		<input type="checkbox" id="ajuda-toggle" style="display: none;">
+    <input type="checkbox" id="menu-toggle" style="display: none;">
+    <input type="checkbox" id="ajuda-toggle" style="display: none;">
 
-		<div class="container">
-			<header class="header">
-				<label for="menu-toggle" class="menu-icon">
-					<i class="fas fa-bars"></i>
-				</label>
-				<a href="index.html" class="logo">
-                    
-					<img src="img/Logo.png" alt="Flash Up Logo">
-				</a>
-				<div class="header-placeholder"></div>
-			</header>
+    <div class="container">
+        <header class="header">
+            <label for="menu-toggle" class="menu-icon">
+                <i class="fas fa-bars"></i>
+            </label>
+            <a href="index.html" class="logo">
+                <img src="img/Logo.png" alt="Flash Up Logo">
+            </a>
+            <div class="header-placeholder"></div>
+        </header>
 
-			<main class="main-content">
-				<div class="welcome-section">
-					<h2>Seja Bem Vindo!</h2>
-					<p>Flash Up é um site de estudos com flashcards onde você pode criar seus próprios baralhos ou usar milhares de baralhos prontos para memorizar e revisar qualquer conteúdo.</p>
-				</div>
-				<div class="buttons-section">
-					<a href="crie.html" class="button create-button">
-						Crie você mesmo
-						<i class="fas fa-plus"></i>
-					</a>
-					<a href="cardsprontos.html" class="button flashcards-button">
-						Flashcards Prontos
-						<i class="fas fa-lightbulb"></i>
-					</a>
-				</div>
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2>Seja Bem Vindo!</h2>
+                <p>Flash Up é um site de estudos com flashcards onde você pode criar seus próprios baralhos ou usar milhares de baralhos prontos para memorizar e revisar qualquer conteúdo.</p>
+            </div>
+            <div class="buttons-section">
+                <a href="crie.html" class="button create-button">
+                    Crie você mesmo
+                    <i class="fas fa-plus"></i>
+                </a>
+                <a href="cardsprontos.html" class="button flashcards-button">
+                    Flashcards Prontos
+                    <i class="fas fa-lightbulb"></i>
+                </a>
+            </div>
+        </main>
 
-				
-			</main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="far fa-envelope"></i></a>
+            </div>
+            <p>Flash Up 2025</p>
+        </footer>
+    </div>
 
-			<footer class="footer">
-				<div class="social-icons">
-					<a href="#"><i class="fab fa-whatsapp"></i></a>
-					<a href="#"><i class="fab fa-instagram"></i></a>
-					<a href="#"><i class="fab fa-facebook-f"></i></a>
-					<a href="#"><i class="far fa-envelope"></i></a>
-				</div>
-				<p>Flash Up 2025</p>
-			</footer>
-		</div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <label for="menu-toggle" class="close-btn">
+                <i class="fas fa-arrow-left"></i>
+            </label>
+        </div>
+        <div class="sidebar-content">
+            <h2>Matérias</h2>
+            <ul class="subjects-list">
+                <li>
+                    <a href="cardsprontos.html">Geral</a>
+                    <i class="fas fa-chevron-right"></i>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
+            <label for="ajuda-toggle" class="help-link">Ajuda?</label>
+            
+            <a href="admin.html" title="Acesso Administrativo">
+                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
+            </a>
+        </div>
+    </div>
 
-		<div class="sidebar">
-			<div class="sidebar-header">
-				<label for="menu-toggle" class="close-btn">
-					<i class="fas fa-arrow-left"></i>
-				</label>
-			</div>
-			<div class="sidebar-content">
-				<h2>Matérias</h2>
-				<ul class="subjects-list">
-					<li>
-						<a href="cardsprontos.html">ENEM</a>
-						<i class="fas fa-chevron-right"></i>
-					</li>
-				</ul>
-			</div>
-			<div class="sidebar-footer">
-				<label for="ajuda-toggle" class="help-link">Ajuda?</label>
-			</div>
-		</div>
+    <div class="ajuda-box">
+        <label for="ajuda-toggle" class="ajuda-close-btn">&times;</label>
+        <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
+    </div>
 
-		<div class="ajuda-box">
-			<label for="ajuda-toggle" class="ajuda-close-btn">&times;</label>
-			<p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
-		</div>
-
-		<script src="js/main.js"></script>
-	</body>
+    <script src="js/main.js"></script>
+</body>
 </html>
