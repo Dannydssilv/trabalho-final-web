@@ -3,12 +3,9 @@ const tabelaCorpo = document.getElementById("tabela-corpo");
 
 tabelaCorpo.innerHTML = "<tr><td colspan='4'>Aguarde...</td></tr>"; 
 
-// 1. Adiciona o listener de evento na tabela (Delegação de Eventos)
 tabelaCorpo.addEventListener("click", acao);
 
-// 2. Função para lidar com cliques nos botões da tabela
 function acao(e) {
-    // Verifica se o elemento clicado é o botão de excluir
     if (e.target.classList.contains("excluir")) {
         e.preventDefault(); // Impede o comportamento padrão do link
         const id = e.target.getAttribute("data-id"); // Obtém o ID do flashcard
@@ -16,9 +13,7 @@ function acao(e) {
     }
 }
 
-// 3. Função para excluir um flashcard
 async function excluirFlashcard(id) {
-    // Adicionei uma confirmação para evitar exclusões acidentais
     if (!confirm("Tem certeza que deseja excluir este flashcard?")) return;
 
     try {
