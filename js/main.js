@@ -5,7 +5,7 @@ const elBd = document.getElementById('bd');
 
 botaoAutor.addEventListener('click', pegarInformacao);
 
-const urlBase = "https://trabalho-final-web-ruddy.vercel.app";
+const urlBase = "https://back-end-tf-web-chi.vercel.app";
 
 async function pegarInformacao() {
 

@@ -1,4 +1,4 @@
-const urlBase = "https://trabalho-final-web-ruddy.vercel.app";
+const urlBase = "https://back-end-tf-web-chi.vercel.app";
 const tabelaCorpo = document.getElementById("tabela-corpo");
 
 tabelaCorpo.innerHTML = "<tr><td colspan='4'>Aguarde...</td></tr>"; 

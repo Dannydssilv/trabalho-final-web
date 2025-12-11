@@ -1,4 +1,4 @@
-const urlBase = "https://trabalho-final-web-ruddy.vercel.app";
+const urlBase = "https://back-end-tf-web-chi.vercel.app";
 
 const botaoSalvar = document.getElementById("submit");
 botaoSalvar.addEventListener("click", inserirFlashcard);

@@ -1,4 +1,4 @@
-const urlBase = "https://trabalho-final-web-ruddy.vercel.app";
+const urlBase = "https://back-end-tf-web-chi.vercel.app";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
