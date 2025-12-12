@@ -1,30 +1,27 @@
+const urlBase = "https://back-end-tf-web-chi.vercel.app";
 const botaoAutor = document.getElementById('botaoAutor');
 const elAutor = document.getElementById('autor');
 const elApi = document.getElementById('api');
 const elBd = document.getElementById('bd');
 
-botaoAutor.addEventListener('click', pegarInformacao);
+if (botaoAutor) {
+    botaoAutor.addEventListener('click', async () => {
+        elAutor.innerText = "Aguarde...";
 
-const urlBase = "https://back-end-tf-web-chi.vercel.app";
+        try {
+            const response = await fetch(urlBase);
 
-async function pegarInformacao() {
+            if (!response.ok) throw new Error(response.status);
 
-  elAutor.innerText = "Aguarde... "
+            const data = await response.json();
+            
+            if (elAutor) elAutor.innerHTML = `<strong>Autor:</strong> ${data.autor}`;
+            if (elApi) elApi.innerHTML = `<strong>API:</strong> ${data.mensagem}`;
+            if (elBd) elBd.innerHTML = `<strong>Banco de Dados:</strong> ${data.dbStatus}`;
 
-  try {
-    const response = await fetch(urlBase);
-
-    if (!response.ok) {
-      throw new Error("Erro na requisição: " + response.status);
-    }
-
-    const data = await response.json();
-    elAutor.innerHTML = `<strong>Autor:</strong> ${data.autor}`;
-    elApi.innerHTML = `<strong>API:</strong> ${data.mensagem}`;
-    elBd.innerHTML = `<strong>Banco de Dados:</strong> ${data.dbStatus}`;
-
-  } catch (error) {
-    console.error("Erro:", error);
-    elAutor.innerText = `Erro: ${error}`;
-  }
+        } catch (error) {
+            console.error(error);
+            if (elAutor) elAutor.innerText = "Erro ao carregar.";
+        }
+    });
 }

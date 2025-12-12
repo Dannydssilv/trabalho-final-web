@@ -3,72 +3,73 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 const botaoSalvar = document.getElementById("submit");
-botaoSalvar.addEventListener("click", salvarAdmin);
+const modalAviso = document.getElementById('modal-aviso');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalMensagem = document.getElementById('modal-mensagem');
+const btnModalOk = document.getElementById('btn-modal-ok');
 
-document.getElementById("id").value = "Carregando...";
+function mostrarModal(titulo, mensagem, callback) {
+    modalTitulo.textContent = titulo;
+    modalMensagem.textContent = mensagem;
+    modalAviso.style.display = 'flex';
+
+    btnModalOk.onclick = () => {
+        modalAviso.style.display = 'none';
+        if (callback) callback();
+    };
+}
 
 (async () => {
     try {
-        const endpoint = `/admin/${id}`; 
-        const urlFinal = urlBase + endpoint; 
-
-        const response = await fetch(urlFinal);
-
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
+        const response = await fetch(`${urlBase}/admin/${id}`);
+        if (!response.ok) throw new Error("Erro ao buscar dados");
 
         const data = await response.json();
-
         const admin = Array.isArray(data) ? data[0] : data;
 
         document.getElementById("id").value = admin.id;
         document.getElementById("nome").value = admin.nome;
         document.getElementById("email").value = admin.email;
-        document.getElementById("senha").value = admin.senha;
 
     } catch (error) {
-        document.getElementById("id").value = `Erro: ${error.message}`;
-        console.error("Erro ao carregar administrador:", error);
+        console.error(error);
+        mostrarModal("Erro", "Não foi possível carregar os dados do administrador.");
     }
 })();
 
-async function salvarAdmin(e) {
-    e.preventDefault(); // Impede o comportamento padrão do botão
+botaoSalvar.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+
+    if (!nome || !email) {
+        mostrarModal("Atenção", "Por favor, preencha o Nome e o E-mail.");
+        return;
+    }
 
     try {
-        const dados = {
-            nome: document.getElementById("nome").value,
-            email: document.getElementById("email").value,
-            senha: document.getElementById("senha").value,
-        };
+        const dados = { nome, email };
 
-        if (!dados.nome || !dados.email || !dados.senha) {
-            alert("Por favor, preencha todos os campos obrigatórios.");
-            return;
+        if (senha) {
+            dados.senha = senha;
         }
 
-        const endpoint = `/admin/${id}`; 
-        const urlFinal = urlBase + endpoint; 
-
-        const response = await fetch(urlFinal, {
+        const response = await fetch(`${urlBase}/admin/${id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados),
         });
 
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
+        if (!response.ok) throw new Error("Erro na requisição: " + response.status);
 
-        alert("Administrador alterado com sucesso!");
-        window.location.href = "admin.html";
+        mostrarModal("Sucesso!", "Administrador alterado com sucesso!", () => {
+            window.location.href = "admin.html";
+        });
 
     } catch (error) {
         console.error("Erro ao salvar:", error);
-        alert("Administrador não alterado: " + error.message);
-        window.location.href = "admin.html";
+        mostrarModal("Erro", "Administrador não alterado: " + error.message);
     }
-}
+});

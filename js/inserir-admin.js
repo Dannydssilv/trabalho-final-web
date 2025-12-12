@@ -1,44 +1,51 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
-
 const botaoSalvar = document.getElementById("submit");
-botaoSalvar.addEventListener("click", inserirAdmin);
 
-async function inserirAdmin(e) {
-    e.preventDefault(); // Impede o comportamento padrão do botão
+const modalAviso = document.getElementById('modal-aviso');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalMensagem = document.getElementById('modal-mensagem');
+const btnModalOk = document.getElementById('btn-modal-ok');
+
+function mostrarModal(titulo, mensagem, callback) {
+    modalTitulo.textContent = titulo;
+    modalMensagem.textContent = mensagem;
+    modalAviso.style.display = 'flex';
+
+    btnModalOk.onclick = () => {
+        modalAviso.style.display = 'none';
+        if (callback) callback();
+    };
+}
+
+botaoSalvar.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+
+    if (!nome || !email || !senha) {
+        mostrarModal("Atenção", "Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
 
     try {
-        const dados = {
-            nome: document.getElementById("nome").value,
-            email: document.getElementById("email").value,
-            senha: document.getElementById("senha").value
-        };
+        const dados = { nome, email, senha };
 
-        if (!dados.nome || !dados.email || !dados.senha) {
-            alert("Por favor, preencha todos os campos obrigatórios.");
-            return;
-        }
-
-        const endpoint = "/admin"; // Endpoint ajustado para o contexto de admin
-        const urlFinal = urlBase + endpoint;
-
-        const response = await fetch(urlFinal, {
+        const response = await fetch(`${urlBase}/admin`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados),
         });
 
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
+        if (!response.ok) throw new Error("Erro na requisição: " + response.status);
 
-        alert("Administrador inserido com sucesso!");
-        window.location.href = "admin.html";
+        mostrarModal("Sucesso!", "Administrador inserido com sucesso!", () => {
+            window.location.href = "admin.html";
+        });
 
     } catch (error) {
-        console.error("Erro no cadastro:", error);
-        alert("Administrador não inserido: " + error.message);
-        window.location.href = "admin.html";
+        console.error(error);
+        mostrarModal("Erro", "Falha ao cadastrar: " + error.message);
     }
-}
+});

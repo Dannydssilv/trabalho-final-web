@@ -1,42 +1,50 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
-
 const botaoSalvar = document.getElementById("submit");
-botaoSalvar.addEventListener("click", inserirFlashcard);
 
-async function inserirFlashcard(e) {
-    e.preventDefault(); // Impede o comportamento padrão do botão
+const modalAviso = document.getElementById('modal-aviso');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalMensagem = document.getElementById('modal-mensagem');
+const btnModalOk = document.getElementById('btn-modal-ok');
+
+function mostrarModal(titulo, mensagem, callback) {
+    modalTitulo.textContent = titulo;
+    modalMensagem.textContent = mensagem;
+    modalAviso.style.display = 'flex';
+
+    btnModalOk.onclick = () => {
+        modalAviso.style.display = 'none';
+        if (callback) callback();
+    };
+}
+
+botaoSalvar.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const pergunta = document.getElementById("pergunta").value.trim();
+    const resposta = document.getElementById("resposta").value.trim();
+
+    if (!pergunta || !resposta) {
+        mostrarModal("Atenção", "Preencha a pergunta e a resposta!");
+        return;
+    }
 
     try {
-        const dados = {
-            pergunta: document.getElementById("pergunta").value, 
-            resposta: document.getElementById("resposta").value
-        };
+        const dados = { pergunta, resposta };
 
-        if (!dados.pergunta || !dados.resposta) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
-
-        const endpoint = "/flashcards"; 
-        const urlFinal = urlBase + endpoint; 
-
-        const response = await fetch(urlFinal, {
+        const response = await fetch(`${urlBase}/flashcards`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json", 
-            },
-            body: JSON.stringify(dados), 
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados),
         });
-        
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
 
-        alert("Flashcard inserido com sucesso!");
-        window.location.href = "flashcards.html";
+        if (!response.ok) throw new Error("Erro na requisição: " + response.status);
+
+        mostrarModal("Sucesso!", "Flashcard inserido com sucesso!", () => {
+            window.location.href = 'admin.html';
+        });
 
     } catch (error) {
-        alert("Flashcard não inserido: " + error.message);
-        window.location.href = "flashcards.html";
+        console.error(error);
+        mostrarModal("Erro", "Não foi possível inserir o card.");
     }
-}
+});

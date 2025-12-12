@@ -1,77 +1,107 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
 const tabelaCorpo = document.getElementById("tabela-corpo");
 
-tabelaCorpo.innerHTML = "<tr><td colspan='4'>Aguarde...</td></tr>"; 
+const modalOverlay = document.getElementById("modal-confirmacao");
+const btnCancelarModal = document.getElementById("btn-cancelar-modal");
+const btnConfirmarModal = document.getElementById("btn-confirmar-modal");
+const spanIdExclusao = document.getElementById("id-exclusao");
 
-tabelaCorpo.addEventListener("click", acao);
+let idParaExcluir = null;
 
-function acao(e) {
-    if (e.target.classList.contains("excluir")) {
-        e.preventDefault(); // Impede o comportamento padrão do link
-        const id = e.target.getAttribute("data-id"); // Obtém o ID do flashcard
-        excluirFlashcard(id); // Chama a função para excluir
-    }
-}
+tabelaCorpo.innerHTML = "<tr><td colspan='4'>Carregando flashcards...</td></tr>"; 
 
-async function excluirFlashcard(id) {
-    if (!confirm("Tem certeza que deseja excluir este flashcard?")) return;
-
-    try {
-        const endpoint = `/flashcards/${id}`; 
-        const urlFinal = urlBase + endpoint;
-
-        const response = await fetch(urlFinal, {
-            method: "DELETE",
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro na requisição: ${response.status}`);
-        }
-
-        alert("Flashcard excluído com sucesso!");
-        
-        // Recarrega a página de listagem de flashcards
-        window.location.href = "flashcards.html"; 
-        
-    } catch (error) {
-        console.error(error);
-        alert("O flashcard não foi excluído!");
-    }
-}
-
-// 4. Busca os flashcards e preenche a tabela
 (async () => {
     try {
-        const endpoint = "/flashcards"; 
-        const urlFinal = urlBase + endpoint; 
-
-        const response = await fetch(urlFinal);
-
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
-
+        const response = await fetch(urlBase + "/flashcards");
         const data = await response.json();
-
+        
         tabelaCorpo.innerHTML = "";
 
-        data.forEach((flashcard) => {
+        if (data.length === 0) {
+            tabelaCorpo.innerHTML = `<tr><td colspan="4">Nenhum flashcard encontrado.</td></tr>`;
+            return;
+        }
+
+        data.forEach((card) => {
             const linha = document.createElement("tr"); 
-            
             linha.innerHTML = `
-                <td>${flashcard.id}</td>
-                <td>${flashcard.pergunta}</td>
-                <td>${flashcard.resposta}</td>
+                <td>${card.id}</td>
+                <td>${card.pergunta}</td>
+                <td>${card.resposta}</td>
                 <td>
-                    <a class="botao editar" href="ver-flashcard.html?id=${flashcard.id}">Ver</a>
-                    <a class="botao excluir" data-id="${flashcard.id}" href="#">Excluir</a>
+                    <a class="botao editar" href="ver-flashcard.html?id=${card.id}" title="Editar" style="margin-right: 10px; color: #0984e3;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="botao excluir" data-id="${card.id}" href="#" title="Excluir" style="color: #d63031;">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                 </td>
             `;
-            
             tabelaCorpo.appendChild(linha); 
         });
 
     } catch (error) {
-        tabelaCorpo.innerHTML = `<tr><td colspan="4">Erro na requisição: ${error.message}</td></tr>`;
+        tabelaCorpo.innerHTML = `<tr><td colspan="4" style="color:red">Erro ao carregar dados.</td></tr>`;
     }
 })();
+
+tabelaCorpo.addEventListener("click", (e) => {
+    const botaoExcluir = e.target.closest(".excluir");
+    
+    if (botaoExcluir) {
+        e.preventDefault(); 
+        const id = botaoExcluir.getAttribute("data-id");
+        abrirModalExclusao(id);
+    }
+});
+
+function abrirModalExclusao(id) {
+    idParaExcluir = id;
+    if (spanIdExclusao) spanIdExclusao.textContent = id;
+    
+    modalOverlay.style.display = "flex";
+    setTimeout(() => {
+        modalOverlay.classList.add("active");
+    }, 10);
+}
+
+function fecharModal() {
+    modalOverlay.classList.remove("active");
+    setTimeout(() => {
+        modalOverlay.style.display = "none";
+    }, 300);
+    idParaExcluir = null;
+}
+
+btnCancelarModal.addEventListener("click", fecharModal);
+
+btnConfirmarModal.addEventListener("click", async () => {
+    if (!idParaExcluir) return;
+
+    const textoOriginal = btnConfirmarModal.innerText;
+    btnConfirmarModal.innerText = "Excluindo...";
+    btnConfirmarModal.disabled = true;
+
+    try {
+        const response = await fetch(`${urlBase}/flashcards/${idParaExcluir}`, { method: "DELETE" });
+
+        if (!response.ok) throw new Error("Erro ao excluir");
+
+        fecharModal();
+        window.location.reload(); 
+
+    } catch (error) {
+        console.error(error);
+        alert("Erro ao excluir. Tente novamente."); 
+        fecharModal();
+    } finally {
+        btnConfirmarModal.innerText = textoOriginal;
+        btnConfirmarModal.disabled = false;
+    }
+});
+
+modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+        fecharModal();
+    }
+});

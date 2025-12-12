@@ -3,32 +3,54 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 const botaoSalvar = document.getElementById("submit");
-botaoSalvar.addEventListener("click", salvarFlashcard);
+const modalAviso = document.getElementById('modal-aviso');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalMensagem = document.getElementById('modal-mensagem');
+const btnModalOk = document.getElementById('btn-modal-ok');
 
-// Carrega os dados iniciais
+function mostrarModal(titulo, mensagem, callback) {
+    modalTitulo.textContent = titulo;
+    modalMensagem.textContent = mensagem;
+    modalAviso.style.display = 'flex';
+
+    btnModalOk.onclick = () => {
+        modalAviso.style.display = 'none';
+        if (callback) callback();
+    };
+}
+
 (async () => {
     try {
         const response = await fetch(`${urlBase}/flashcards/${id}`);
         if (!response.ok) throw new Error("Erro na requisição");
+        
         const data = await response.json();
         const flashcard = Array.isArray(data) ? data[0] : data;
 
         document.getElementById("id").value = flashcard.id;
         document.getElementById("pergunta").value = flashcard.pergunta;
         document.getElementById("resposta").value = flashcard.resposta;
+
     } catch (error) {
         document.getElementById("id").value = "Erro";
+        console.error(error);
+        mostrarModal("Erro", "Falha ao carregar dados do card.");
     }
 })();
 
-async function salvarFlashcard(e) {
+botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault(); 
 
+    const pergunta = document.getElementById("pergunta").value.trim();
+    const resposta = document.getElementById("resposta").value.trim();
+
+    if (!pergunta || !resposta) {
+        mostrarModal("Atenção", "Preencha pergunta e resposta.");
+        return;
+    }
+
     try {
-        const dados = {
-            pergunta: document.getElementById("pergunta").value,
-            resposta: document.getElementById("resposta").value
-        };
+        const dados = { pergunta, resposta };
 
         const response = await fetch(`${urlBase}/flashcards/${id}`, {
             method: "PUT",
@@ -38,35 +60,12 @@ async function salvarFlashcard(e) {
 
         if (!response.ok) throw new Error("Erro ao salvar");
 
-        // --- AQUI ESTÁ A MUDANÇA: JANELA BONITA ---
-        mostrarModalBonito("Sucesso!", "Questão alterada com sucesso!", () => {
+        mostrarModal("Sucesso!", "Questão alterada com sucesso!", () => {
             window.location.href = "admin.html";
         });
 
     } catch (error) {
-        mostrarModalBonito("Ops!", "Erro ao alterar: " + error.message);
+        console.error(error);
+        mostrarModal("Ops!", "Erro ao alterar: " + error.message);
     }
-}
-
-// --- FUNÇÃO QUE CRIA A JANELA BONITA ---
-function mostrarModalBonito(titulo, mensagem, callback) {
-    // Cria o HTML da janela
-    const modalDiv = document.createElement("div");
-    modalDiv.className = "custom-modal-overlay";
-    modalDiv.innerHTML = `
-        <div class="custom-modal-box">
-            <h3>${titulo}</h3>
-            <p>${mensagem}</p>
-            <div class="modal-buttons">
-                <button id="modal-ok-btn" class="btn-modal btn-confirm">OK</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modalDiv);
-
-    // Adiciona ação ao botão OK
-    document.getElementById("modal-ok-btn").addEventListener("click", () => {
-        modalDiv.remove(); // Fecha a janela
-        if (callback) callback(); // Executa a ação (ex: mudar de página)
-    });
-}
+});

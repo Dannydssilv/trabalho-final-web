@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Up - Crie seus Flashcards</title>
-    
     <link rel="stylesheet" href="css/estilo.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <input type="checkbox" id="menu-toggle" style="display: none;">
     <input type="checkbox" id="ajuda-toggle" style="display: none;">
 
@@ -30,7 +27,6 @@
 
         <main class="main-content-create">
             <div class="create-section-horizontal">
-                
                 <div class="cards-scroll-container" id="cardsContainer">
                     <div class="flashcard-item card-container" id="currentCard">
                         <div class="card-inner">
@@ -50,7 +46,6 @@
                     <div class="flashcard-item add-flashcard" id="btnAddPilha" title="Adicionar Card">
                         <i class="fas fa-plus"></i>
                     </div>
-                    
                     <button id="btnSalvarJogar" class="play-button" title="Salvar e Estudar">
                         <i class="fas fa-play"></i>
                     </button>
@@ -82,7 +77,7 @@
         <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
             <label for="ajuda-toggle" class="help-link">Ajuda?</label>
             <a href="admin.html" title="Acesso Administrativo">
-                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer;"></i>
+                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
             </a>
         </div>
     </div>
@@ -93,61 +88,5 @@
     </div>
 
     <script src="js/script.js"></script>
-
-    <script>
-        const inputPergunta = document.getElementById('inputPergunta');
-        const inputResposta = document.getElementById('inputResposta');
-        const btnAddPilha = document.getElementById('btnAddPilha');
-        const btnSalvarJogar = document.getElementById('btnSalvarJogar');
-        const cardsContainer = document.getElementById('cardsContainer');
-        const currentCardElement = document.getElementById('currentCard');
-        const cardInner = currentCardElement.querySelector('.card-inner');
-        const btnsVirar = currentCardElement.querySelectorAll('.btn-virar');
-
-        let cardsTemporarios = [];
-
-        // Animação de virar manual
-        btnsVirar.forEach(btn => {
-            btn.addEventListener('click', () => cardInner.classList.toggle('flipped'));
-        });
-
-        // 1. Adicionar Card
-        btnAddPilha.addEventListener('click', () => {
-            const perguntaTxt = inputPergunta.value.trim();
-            const respostaTxt = inputResposta.value.trim();
-
-            if (!perguntaTxt || !respostaTxt) return; // Não faz nada se vazio
-
-            cardsTemporarios.push({ pergunta: perguntaTxt, resposta: respostaTxt });
-
-            // Card visual finalizado
-            const cardFinalizado = document.createElement('div');
-            cardFinalizado.className = 'flashcard-item card-container finished-card';
-            cardFinalizado.innerHTML = `
-                <div class="card-inner">
-                    <div class="card-face card-front" style="background-color: #e0e0e0; border-color: #ccc;">
-                        <textarea class="flashcard-textarea" readonly>${perguntaTxt}</textarea>
-                    </div>
-                </div>
-            `;
-
-            cardsContainer.insertBefore(cardFinalizado, currentCardElement);
-
-            inputPergunta.value = "";
-            inputResposta.value = "";
-            cardInner.classList.remove('flipped');
-
-            setTimeout(() => cardsContainer.scrollLeft = cardsContainer.scrollWidth, 100);
-        });
-
-        // 2. Play Direto (Sem Confirmação)
-        btnSalvarJogar.addEventListener('click', () => {
-            if (cardsTemporarios.length === 0) return;
-
-            // Salva e vai direto
-            localStorage.setItem('flashcards', JSON.stringify(cardsTemporarios));
-            window.location.href = "estudo.html";
-        });
-    </script>
 </body>
 </html>

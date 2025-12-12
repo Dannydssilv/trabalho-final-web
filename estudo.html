@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Up - Modo Estudo</title>
-    
     <link rel="stylesheet" href="css/estilo.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -31,7 +28,6 @@
 
         <main class="main-content-study">
             <div class="study-section">
-                
                 <h3 style="color: #9370db; font-size: 2rem; margin-bottom: 20px; text-align: center; width: 100%;">
                     Revisão
                 </h3>
@@ -50,7 +46,7 @@
                 <div class="study-controls">
                     <button id="restartBtn" class="study-button">Voltar</button>
                     <button id="nextCardBtn" class="study-button">Próximo</button>
-                    </div>
+                </div>
             </div>
         </main>
 
@@ -80,11 +76,22 @@
                 </li>
             </ul>
         </div>
+        
         <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
             <label for="ajuda-toggle" class="help-link">Ajuda?</label>
             <a href="admin.html" title="Acesso Administrativo">
                 <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
             </a>
+        </div>
+    </div>
+
+    <div id="modal-aviso" class="custom-modal-overlay" style="display: none;">
+        <div class="custom-modal-box">
+            <h3 id="modal-titulo" style="color: #9370db;">Parabéns!</h3>
+            <p id="modal-mensagem" style="color: #666; font-size: 1.1rem; margin: 20px 0;">Você completou todos os cards.</p>
+            <div class="modal-buttons">
+                <button id="btn-modal-ok" class="btn-modal btn-confirm">OK</button>
+            </div>
         </div>
     </div>
 

@@ -5,36 +5,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextCardBtn = document.getElementById('nextCardBtn');
     const restartBtn = document.getElementById('restartBtn');
 
+    const modalAviso = document.getElementById('modal-aviso');
+    const modalTitulo = document.getElementById('modal-titulo');
+    const modalMensagem = document.getElementById('modal-mensagem');
+    const btnModalOk = document.getElementById('btn-modal-ok');
+
     let flashcards = [];
     let currentCardIndex = 0;
 
     function showModal(titulo, msg, callback) {
-        const modalDiv = document.createElement("div");
-        modalDiv.className = "custom-modal-overlay";
-        modalDiv.innerHTML = `
-            <div class="custom-modal-box">
-                <h3 style="color: #9370db;">${titulo}</h3>
-                <p>${msg}</p>
-                <button id="btn-modal-ok" class="btn-modal btn-confirm">OK</button>
-            </div>
-        `;
-        document.body.appendChild(modalDiv);
-        document.getElementById("btn-modal-ok").addEventListener("click", () => {
-            modalDiv.remove();
-            if(callback) callback();
-        });
+        modalTitulo.textContent = titulo;
+        modalMensagem.textContent = msg;
+        modalAviso.style.display = 'flex';
+
+        btnModalOk.onclick = () => {
+            modalAviso.style.display = 'none';
+            if (callback) callback();
+        };
     }
 
     function loadFlashcards() {
         const savedFlashcards = localStorage.getItem('flashcards');
+        
         if (savedFlashcards) {
             flashcards = JSON.parse(savedFlashcards);
             shuffle(flashcards);
+            
             if (flashcards.length > 0) {
                 showCurrentCard();
             } else {
                 perguntaText.textContent = "Lista vazia.";
+                nextCardBtn.style.display = 'none';
             }
+        } else {
+            perguntaText.textContent = "Nenhum card para revisar.";
+            nextCardBtn.style.display = 'none';
         }
     }
 
@@ -60,10 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextCardBtn.addEventListener('click', () => {
         studyCard.classList.remove('flipped');
+        
         setTimeout(() => {
             currentCardIndex++;
+            
             if (currentCardIndex >= flashcards.length) {
-                // AQUI: Janela bonita em vez de alert
                 showModal("Parabéns!", "Você finalizou a rodada! Vamos reembaralhar.", () => {
                     currentCardIndex = 0;
                     shuffle(flashcards);

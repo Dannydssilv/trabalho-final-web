@@ -1,46 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const flashcardGrid = document.getElementById('flashcardGrid');
-    const addFlashcardButton = document.getElementById('addFlashcardButton');
-    const playButton = document.querySelector('.play-button');
+    
+    // Verifica se estamos na página de criação (crie.html)
+    const btnAddPilha = document.getElementById('btnAddPilha');
 
-    let cardCount = 1;
+    if (btnAddPilha) {
+        const inputPergunta = document.getElementById('inputPergunta');
+        const inputResposta = document.getElementById('inputResposta');
+        const btnSalvarJogar = document.getElementById('btnSalvarJogar');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const currentCardElement = document.getElementById('currentCard');
+        const cardInner = currentCardElement.querySelector('.card-inner');
+        const btnsVirar = currentCardElement.querySelectorAll('.btn-virar');
 
-    function addFlashcard() {
-        cardCount++;
-        const newFlashcardHTML = `
-            <div class="flashcard-item card-container">
-                <input type="checkbox" id="card-${cardCount}-flip" class="card-flip-checkbox">
-                <label for="card-${cardCount}-flip" class="card-inner">
-                    <div class="card-face card-front">
-                        <textarea placeholder="Pergunta aqui..." class="flashcard-textarea"></textarea>
-                    </div>
-                    <div class="card-face card-back">
-                        <textarea placeholder="Resposta aqui..." class="flashcard-textarea"></textarea>
-                    </div>
-                </label>
-            </div>
-        `;
-        
-        addFlashcardButton.insertAdjacentHTML('beforebegin', newFlashcardHTML);
-    }
+        let cardsTemporarios = [];
 
-    addFlashcardButton.addEventListener('click', addFlashcard);
-
-    playButton.addEventListener('click', () => {
-        const allFlashcards = [];
-        const cardContainers = document.querySelectorAll('.card-container');
-        
-        cardContainers.forEach(card => {
-            const pergunta = card.querySelector('.card-front .flashcard-textarea').value;
-            const resposta = card.querySelector('.card-back .flashcard-textarea').value;
-            
-            if (pergunta.trim() !== '' && resposta.trim() !== '') {
-                allFlashcards.push({ pergunta: pergunta, resposta: resposta });
-            }
+        btnsVirar.forEach(btn => {
+            btn.addEventListener('click', () => cardInner.classList.toggle('flipped'));
         });
 
-        localStorage.setItem('flashcards', JSON.stringify(allFlashcards));
+        btnAddPilha.addEventListener('click', () => {
+            const perguntaTxt = inputPergunta.value.trim();
+            const respostaTxt = inputResposta.value.trim();
 
-        window.location.href = 'estudo.html';
-    });
+            if (!perguntaTxt || !respostaTxt) return;
+
+            cardsTemporarios.push({ pergunta: perguntaTxt, resposta: respostaTxt });
+
+            const cardFinalizado = document.createElement('div');
+            cardFinalizado.className = 'flashcard-item card-container finished-card';
+            cardFinalizado.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-face card-front" style="background-color: #e0e0e0; border-color: #ccc;">
+                        <textarea class="flashcard-textarea" readonly>${perguntaTxt}</textarea>
+                    </div>
+                </div>
+            `;
+
+            cardsContainer.insertBefore(cardFinalizado, currentCardElement);
+
+            inputPergunta.value = "";
+            inputResposta.value = "";
+            cardInner.classList.remove('flipped');
+
+            setTimeout(() => cardsContainer.scrollLeft = cardsContainer.scrollWidth, 100);
+        });
+
+        btnSalvarJogar.addEventListener('click', () => {
+            if (cardsTemporarios.length === 0) return;
+            localStorage.setItem('flashcards', JSON.stringify(cardsTemporarios));
+            window.location.href = "estudo.html";
+        });
+    }
 });

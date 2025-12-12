@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inserir Flashcard - Admin</title>
-    
     <link rel="stylesheet" href="css/estilo.css" />
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,7 +19,6 @@
 
         <div class="edit-body">
             <form id="form-flashcard">
-                
                 <div class="form-group">
                     <label for="pergunta">Pergunta:</label>
                     <textarea name="pergunta" id="pergunta" rows="4" placeholder="Digite a pergunta aqui..."></textarea>
@@ -42,6 +39,16 @@
                     </a>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div id="modal-aviso" class="custom-modal-overlay" style="display: none;">
+        <div class="custom-modal-box">
+            <h3 id="modal-titulo" style="color: #9370db;">Sucesso!</h3>
+            <p id="modal-mensagem" style="color: #666; font-size: 1.1rem; margin: 20px 0;">Mensagem aqui.</p>
+            <div class="modal-buttons">
+                <button id="btn-modal-ok" class="btn-modal btn-confirm">OK</button>
+            </div>
         </div>
     </div>
 
