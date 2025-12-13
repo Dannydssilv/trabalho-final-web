@@ -1,26 +1,21 @@
 const urlBase = "https://back-end-tf-web-chi.vercel.app";
 
-// Elementos da Interface
 const menuFlashcards = document.getElementById("menu-flashcards");
 const menuAvaliacoes = document.getElementById("menu-avaliacoes");
 const viewFlashcards = document.getElementById("view-flashcards");
 const viewAvaliacoes = document.getElementById("view-avaliacoes");
 
-// Elementos das Tabelas
 const tabelaFlashcards = document.getElementById("tabela-flashcards");
 const tabelaAvaliacoes = document.getElementById("tabela-avaliacoes");
 
-// Elementos do Modal
 const modalOverlay = document.getElementById("modal-confirmacao");
 const btnCancelarModal = document.getElementById("btn-cancelar-modal");
 const btnConfirmarModal = document.getElementById("btn-confirmar-modal");
 const spanIdExclusao = document.getElementById("id-exclusao");
 
-// Variáveis de Controle
 let itemParaExcluir = null;
-let tipoExclusao = ""; // 'flashcard' ou 'avaliacao'
+let tipoExclusao = ""; 
 
-// --- NAVEGAÇÃO ENTRE ABAS ---
 menuFlashcards.addEventListener("click", () => {
     ativarAba(menuFlashcards, viewFlashcards);
     carregarFlashcards();
@@ -32,18 +27,13 @@ menuAvaliacoes.addEventListener("click", () => {
 });
 
 function ativarAba(menuItem, viewItem) {
-    // Remove classe active de tudo
     document.querySelectorAll(".menu-item").forEach(el => el.classList.remove("active"));
     document.querySelectorAll(".section-view").forEach(el => el.classList.remove("active"));
     
-    // Adiciona no selecionado
     menuItem.classList.add("active");
     viewItem.classList.add("active");
 }
 
-// --- FUNÇÕES DE CARREGAMENTO ---
-
-// 1. CARREGAR FLASHCARDS
 async function carregarFlashcards() {
     tabelaFlashcards.innerHTML = "<tr><td colspan='4'>Carregando flashcards...</td></tr>";
     try {
@@ -78,7 +68,6 @@ async function carregarFlashcards() {
     }
 }
 
-// 2. CARREGAR AVALIAÇÕES
 async function carregarAvaliacoes() {
     tabelaAvaliacoes.innerHTML = "<tr><td colspan='4'>Carregando avaliações...</td></tr>";
     try {
@@ -92,7 +81,6 @@ async function carregarAvaliacoes() {
         }
 
         data.forEach((av) => {
-            // Gera as estrelas visualmente
             const estrelasHTML = Array(5).fill(0).map((_, i) => 
                 `<i class="fas fa-star" style="color: ${i < av.nota ? '#f1c40f' : '#ddd'}; font-size: 0.8rem;"></i>`
             ).join('');
@@ -115,15 +103,13 @@ async function carregarAvaliacoes() {
     }
 }
 
-// --- LÓGICA DE EXCLUSÃO (Comum para ambos) ---
 
-// Escuta cliques nas tabelas para pegar o botão excluir
 document.addEventListener("click", (e) => {
     const botaoExcluir = e.target.closest(".excluir");
     if (botaoExcluir) {
         e.preventDefault();
         const id = botaoExcluir.getAttribute("data-id");
-        const tipo = botaoExcluir.getAttribute("data-tipo"); // 'flashcard' ou 'avaliacao'
+        const tipo = botaoExcluir.getAttribute("data-tipo"); 
 
         itemParaExcluir = id;
         tipoExclusao = tipo;
@@ -146,7 +132,6 @@ btnConfirmarModal.addEventListener("click", async () => {
     btnConfirmarModal.innerText = "Excluindo...";
     btnConfirmarModal.disabled = true;
 
-    // Define o endpoint baseado no tipo
     const endpoint = tipoExclusao === 'flashcard' ? 'flashcards' : 'avaliacoes';
 
     try {
@@ -156,7 +141,6 @@ btnConfirmarModal.addEventListener("click", async () => {
 
         modalOverlay.style.display = "none";
         
-        // Recarrega a tabela correta
         if (tipoExclusao === 'flashcard') {
             carregarFlashcards();
         } else {
@@ -174,5 +158,4 @@ btnConfirmarModal.addEventListener("click", async () => {
     }
 });
 
-// Inicialização: Carrega flashcards por padrão ao abrir
 carregarFlashcards();

@@ -305,7 +305,7 @@ html, body {
     align-items: center;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     font-size: 1.4rem;
     line-height: 1.5;
     overflow-y: auto;
@@ -396,7 +396,7 @@ html, body {
 }
 
 .cards-scroll-container::-webkit-scrollbar-track {
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
 }
 
@@ -407,7 +407,7 @@ html, body {
     align-items: center;
     justify-content: center;
     min-width: 90px;
-    border-left: 2px dashed rgba(0,0,0,0.1);
+    border-left: 2px dashed rgba(0, 0, 0, 0.1);
     padding-left: 20px;
 }
 
@@ -440,7 +440,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-front {
@@ -474,11 +474,12 @@ html, body {
     color: var(--secondary-accent-color);
     cursor: pointer;
     padding: 5px;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 50%;
 }
 
-.add-flashcard, .play-button {
+.add-flashcard,
+.play-button {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -487,7 +488,7 @@ html, body {
     align-items: center;
     cursor: pointer;
     transition: transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .add-flashcard {
@@ -511,7 +512,8 @@ html, body {
     padding-left: 5px;
 }
 
-.add-flashcard:hover, .play-button:hover {
+.add-flashcard:hover,
+.play-button:hover {
     transform: scale(1.1);
 }
 
@@ -524,7 +526,7 @@ html, body {
     background: white;
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     width: 100%;
     overflow-x: auto;
 }
@@ -535,7 +537,8 @@ table {
     min-width: 600px;
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #eee;
@@ -575,7 +578,7 @@ th {
     max-width: 500px;
     margin: 40px auto;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -610,7 +613,8 @@ th {
     font-weight: 500;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 12px;
     border: 2px solid #eee;
@@ -620,7 +624,8 @@ th {
     transition: border-color 0.3s;
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: var(--secondary-accent-color);
     outline: none;
 }
@@ -663,7 +668,7 @@ th {
     text-align: center;
     width: 90%;
     max-width: 350px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .login-box button {
@@ -701,7 +706,7 @@ th {
     width: 90%;
     max-width: 400px;
     text-align: center;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     animation: popIn 0.3s;
 }
 
@@ -777,7 +782,7 @@ th {
     .welcome-section p {
         text-align: center;
     }
-    
+
     .create-section-horizontal {
         flex-direction: column;
         padding: 20px 10px;
@@ -790,7 +795,7 @@ th {
     .actions-side {
         flex-direction: row;
         border-left: none;
-        border-top: 2px dashed rgba(0,0,0,0.1);
+        border-top: 2px dashed rgba(0, 0, 0, 0.1);
         padding-left: 0;
         padding-top: 20px;
         width: 100%;
@@ -812,13 +817,21 @@ th {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes popIn {
-    from { transform: scale(0.8); }
-    to { transform: scale(1); }
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 #ajuda-toggle {
@@ -832,10 +845,10 @@ th {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999; 
-    display: none; 
-    justify-content: center; 
-    align-items: center; 
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -848,14 +861,14 @@ th {
 .modal-box {
     background-color: #fff;
     width: 100%;
-    max-width: 350px; 
+    max-width: 350px;
     padding: 30px 20px;
-    border-radius: 20px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
     position: relative;
     transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #ajuda-toggle:checked ~ .modal-overlay .modal-box {
@@ -894,39 +907,37 @@ th {
 
 .login-page-container {
     display: flex;
-    justify-content: center; 
-    align-items: center;     
-    width: 100vw;            
-    height: 100vh;           
-    background-color: #f0f2f5; 
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f2f5;
 }
 
 #tela-bloqueio {
-    display: flex;         
-    justify-content: center; 
-    align-items: center;    
-    height: 100vh;         
-    width: 100vw;           
-    background-color: #f0f2f5; 
-    position: fixed;        
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f0f2f5;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;           
+    z-index: 9999;
 }
-/* --- PÁGINA DE AVALIAÇÃO --- */
 
 .avaliacao-box {
     background: white;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 500px;
     width: 90%;
-    margin: 0 auto; /* Centraliza na tela */
+    margin: 0 auto;
 }
 
-/* Estilo das Estrelas */
 .stars-container {
     margin: 20px 0;
     display: flex;
@@ -936,7 +947,7 @@ th {
 
 .star {
     font-size: 2.5rem;
-    color: #ddd; /* Cor padrão cinza */
+    color: #ddd;
     cursor: pointer;
     transition: transform 0.2s, color 0.2s;
 }
@@ -945,12 +956,10 @@ th {
     transform: scale(1.2);
 }
 
-/* Classe que o JS vai adicionar quando a estrela for selecionada */
 .star.active {
-    color: #f1c40f; /* Dourado */
+    color: #f1c40f;
 }
 
-/* Área de texto do comentário */
 #comentario {
     width: 100%;
     height: 100px;
@@ -958,7 +967,7 @@ th {
     border: 2px solid #eee;
     border-radius: 10px;
     font-family: 'Fredoka', sans-serif;
-    resize: none; /* Impede o usuário de esticar a caixa */
+    resize: none;
     outline: none;
     margin-bottom: 20px;
     transition: border-color 0.3s;
@@ -968,7 +977,6 @@ th {
     border-color: #9370db;
 }
 
-/* Botão de Enviar */
 .btn-enviar-avaliacao {
     background-color: #9370db;
     color: white;

@@ -127,7 +127,6 @@
     </div>
 
     <script>
-        // Lógica de Login Inline (igual ao anterior)
         const formLogin = document.getElementById('form-login');
         const telaBloqueio = document.getElementById('tela-bloqueio');
         const painelAdmin = document.getElementById('painel-admin');
@@ -194,7 +193,6 @@
             telaBloqueio.style.display = 'none';
             painelAdmin.style.display = 'block';
             
-            // Carrega o script principal do painel apenas após o login
             if (!document.querySelector('script[src="js/admin.js"]')) {
                 const script = document.createElement('script');
                 script.src = "js/admin.js"; 

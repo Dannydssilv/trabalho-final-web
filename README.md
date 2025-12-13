@@ -43,22 +43,6 @@ Para a entidade Usuario:
 
     * senha
 
-Para a entidade Categoria:
-
-    * id_categoria (Identificador)
-
-    * nome_categoria
-
-Para a entidade Baralho:
-
-    * id_baralho (Identificador)
-
-    * titulo
-
-    * descricao
-
-    * data_criacao
-
 Para a entidade Flashcard:
 
     * id_flashcard (Identificador)
