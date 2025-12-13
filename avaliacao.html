@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash Up - Crie seus Flashcards</title>
+    <title>Flash Up - Avaliação</title>
     
     <link rel="stylesheet" href="css/estilo.css">
     
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
     <input type="checkbox" id="menu-toggle" style="display: none;">
     <input type="checkbox" id="ajuda-toggle" style="display: none;">
 
@@ -27,30 +28,25 @@
             <div class="header-placeholder"></div>
         </header>
 
-        <main class="main-content-create">
-            <div class="create-section-horizontal">
-                <div class="cards-scroll-container" id="cardsContainer">
-                    <div class="flashcard-item card-container" id="currentCard">
-                        <div class="card-inner">
-                            <div class="card-face card-front">
-                                <textarea id="inputPergunta" placeholder="Digite a Pergunta..." class="flashcard-textarea"></textarea>
-                                <i class="fas fa-arrow-right flip-arrow btn-virar" title="Virar"></i>
-                            </div>
-                            <div class="card-face card-back">
-                                <textarea id="inputResposta" placeholder="Digite a Resposta..." class="flashcard-textarea"></textarea>
-                                <i class="fas fa-arrow-left flip-arrow btn-virar" title="Voltar"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <main class="main-content-study">
+            <div class="study-section">
+                <div class="avaliacao-box">
+                    <i class="fas fa-heart" style="font-size: 3rem; color: #ff7675; margin-bottom: 15px;"></i>
+                    <h2 style="color: #333; margin-bottom: 10px;">O que achou do Flash Up?</h2>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Sua opinião é muito importante para nós!</p>
 
-                <div class="actions-side">
-                    <div class="flashcard-item add-flashcard" id="btnAddPilha" title="Adicionar Card">
-                        <i class="fas fa-plus"></i>
+                    <div class="stars-container">
+                        <i class="fas fa-star star" data-value="1"></i>
+                        <i class="fas fa-star star" data-value="2"></i>
+                        <i class="fas fa-star star" data-value="3"></i>
+                        <i class="fas fa-star star" data-value="4"></i>
+                        <i class="fas fa-star star" data-value="5"></i>
                     </div>
-                    <button id="btnSalvarJogar" class="play-button" title="Salvar e Estudar">
-                        <i class="fas fa-play"></i>
-                    </button>
+
+                    <form id="form-avaliacao">
+                        <textarea id="comentario" placeholder="Deixe um comentário ou sugestão (opcional)..."></textarea>
+                        <button type="submit" class="btn-enviar-avaliacao">Enviar Feedback</button>
+                    </form>
                 </div>
             </div>
         </main>
@@ -68,10 +64,12 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <label for="menu-toggle" class="close-btn"><i class="fas fa-arrow-left"></i></label>
+            <label for="menu-toggle" class="close-btn">
+                <i class="fas fa-arrow-left"></i>
+            </label>
         </div>
         <div class="sidebar-content">
-            <h2>Matérias</h2>
+            <h2>Navegação</h2>
             <ul class="subjects-list">
                 
                 <li style="display: flex; align-items: center;">
@@ -80,7 +78,7 @@
                 </li>
 
                 <li style="display: flex; align-items: center;">
-                    <a href="avaliacao.html">Avaliar Site</a>
+                    <a href="avaliacao.html" style="color: #9370db; font-weight: bold;">Avaliar Site</a>
                     <i class="fas fa-star" style="color: #f1c40f; font-size: 0.9rem; margin-left: 8px;"></i>
                 </li>
 
@@ -94,14 +92,25 @@
         </div>
     </div>
 
+    <div id="modal-agradecimento" class="custom-modal-overlay" style="display: none;">
+        <div class="custom-modal-box">
+            <i class="fas fa-check-circle" style="font-size: 3rem; color: #55efc4; margin-bottom: 15px;"></i>
+            <h3 style="color: #333;">Obrigado!</h3>
+            <p style="color: #666; margin: 15px 0;">Recebemos seu feedback com sucesso.</p>
+            <div class="modal-buttons">
+                <button id="btn-fechar-agradecimento" class="btn-modal btn-confirm">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay">
         <div class="modal-box">
-            <h3>Precisa de uma mãozinha?</h3>
-            <p>Crie seus cards clicando no <b>+</b> e depois aperte o <b>Play</b> para revisar o que você criou!</p>
+            <h3>Dê sua opinião!</h3>
+            <p>Selecione quantas estrelas o site merece e escreva o que podemos melhorar.</p>
             <label for="ajuda-toggle" class="btn-fechar-modal">Entendi!</label>
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/avaliacao.js"></script>
 </body>
 </html>

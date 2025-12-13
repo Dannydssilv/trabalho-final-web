@@ -913,3 +913,75 @@ th {
     left: 0;
     z-index: 9999;           
 }
+/* --- PÁGINA DE AVALIAÇÃO --- */
+
+.avaliacao-box {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto; /* Centraliza na tela */
+}
+
+/* Estilo das Estrelas */
+.stars-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.star {
+    font-size: 2.5rem;
+    color: #ddd; /* Cor padrão cinza */
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+/* Classe que o JS vai adicionar quando a estrela for selecionada */
+.star.active {
+    color: #f1c40f; /* Dourado */
+}
+
+/* Área de texto do comentário */
+#comentario {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: 'Fredoka', sans-serif;
+    resize: none; /* Impede o usuário de esticar a caixa */
+    outline: none;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+#comentario:focus {
+    border-color: #9370db;
+}
+
+/* Botão de Enviar */
+.btn-enviar-avaliacao {
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.btn-enviar-avaliacao:hover {
+    background-color: #835ac9;
+}
