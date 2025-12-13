@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Up - Crie seus Flashcards</title>
+    
     <link rel="stylesheet" href="css/estilo.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
@@ -82,9 +84,12 @@
         </div>
     </div>
 
-    <div class="ajuda-box">
-        <label for="ajuda-toggle" class="ajuda-close-btn">&times;</label>
-        <p>Crie seus cards e clique no Play para revisar!</p>
+    <div class="modal-overlay">
+        <div class="modal-box">
+            <h3>Precisa de uma mãozinha?</h3>
+            <p>Crie seus cards clicando no <b>+</b> e depois aperte o <b>Play</b> para revisar o que você criou!</p>
+            <label for="ajuda-toggle" class="btn-fechar-modal">Entendi!</label>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

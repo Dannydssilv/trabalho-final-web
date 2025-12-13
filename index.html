@@ -14,9 +14,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <input type="checkbox" id="menu-toggle" style="display: none;">
     <input type="checkbox" id="ajuda-toggle" style="display: none;">
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <label for="menu-toggle" class="close-btn">
+                <i class="fas fa-arrow-left"></i>
+            </label>
+        </div>
+        <div class="sidebar-content">
+            <h2>Matérias</h2>
+            <ul class="subjects-list">
+                <li>
+                    <a href="cardsprontos.html">Geral</a>
+                    <i class="fas fa-chevron-right"></i>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
+            <label for="ajuda-toggle" class="help-link">Ajuda?</label>
+            
+            <a href="admin.html" title="Acesso Administrativo">
+                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
+            </a>
+        </div>
+    </div>
 
     <div class="container">
         <header class="header">
@@ -57,34 +81,12 @@
         </footer>
     </div>
 
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <label for="menu-toggle" class="close-btn">
-                <i class="fas fa-arrow-left"></i>
-            </label>
+    <div class="modal-overlay">
+        <div class="modal-box">
+            <h3>Precisa de uma mãozinha?</h3>
+            <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
+            <label for="ajuda-toggle" class="btn-fechar-modal">Entendi!</label>
         </div>
-        <div class="sidebar-content">
-            <h2>Matérias</h2>
-            <ul class="subjects-list">
-                <li>
-                    <a href="cardsprontos.html">Geral</a>
-                    <i class="fas fa-chevron-right"></i>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="sidebar-footer" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
-            <label for="ajuda-toggle" class="help-link">Ajuda?</label>
-            
-            <a href="admin.html" title="Acesso Administrativo">
-                <i class="fas fa-tools" style="color: #bbb; font-size: 1.1rem; cursor: pointer; transition: color 0.3s;"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="ajuda-box">
-        <label for="ajuda-toggle" class="ajuda-close-btn">&times;</label>
-        <p>A melhor forma de se ajudar é não procrastinar! Que tal começar a estudar agora mesmo?</p>
     </div>
 
     <script src="js/main.js"></script>

@@ -61,7 +61,7 @@ html, body {
 }
 
 .logo img {
-    height: 120px;
+    height: 220px;
     object-fit: contain;
     transition: transform 0.3s;
     margin-top: 10px;
@@ -819,4 +819,97 @@ th {
 @keyframes popIn {
     from { transform: scale(0.8); }
     to { transform: scale(1); }
+}
+
+#ajuda-toggle {
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999; 
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#ajuda-toggle:checked ~ .modal-overlay {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-box {
+    background-color: #fff;
+    width: 100%;
+    max-width: 350px; 
+    padding: 30px 20px;
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    text-align: center;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+#ajuda-toggle:checked ~ .modal-overlay .modal-box {
+    transform: scale(1);
+}
+
+.modal-box h3 {
+    color: var(--secondary-accent-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.modal-box p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.btn-fechar-modal {
+    background-color: var(--secondary-accent-color);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn-fechar-modal:hover {
+    background-color: var(--plus-icon-color);
+}
+
+.login-page-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    width: 100vw;            
+    height: 100vh;           
+    background-color: #f0f2f5; 
+}
+
+#tela-bloqueio {
+    display: flex;         
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;         
+    width: 100vw;           
+    background-color: #f0f2f5; 
+    position: fixed;        
+    top: 0;
+    left: 0;
+    z-index: 9999;           
 }
